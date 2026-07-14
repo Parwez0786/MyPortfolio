@@ -1,6 +1,6 @@
 <h2 align="center">
   Portfolio Website - v2.0<br/>
-  <a href="https://parwezportfolio.vercel.app/" target="_blank">ParwezPortfolio</a>
+  <a href="https://portfolio-client-w93a.onrender.com/" target="_blank">ParwezPortfolio</a>
 </h2>
 
 
