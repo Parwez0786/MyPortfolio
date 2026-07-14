@@ -109,18 +109,21 @@ button:focus {
   opacity: 0;
 }
 
-/* Same spinner as home preloader, inline for page sections */
+/* Same spinner as home preloader, centered in the section viewport */
 .section-preloader {
   width: 100%;
-  min-height: 220px;
+  min-height: calc(100vh - 180px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-image: url(./Assets/pre.svg);
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
   background-size: 80px 80px;
 }
 
 .section-preloader--compact {
-  min-height: 160px;
+  min-height: 240px;
   background-size: 64px 64px;
 }
 
