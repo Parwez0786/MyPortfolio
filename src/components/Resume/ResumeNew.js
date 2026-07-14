@@ -165,20 +165,21 @@ function ResumeNew() {
           )}
         </div>
 
-        <div className="resume-toolbar resume-toolbar-bottom">
-          <Button
-            variant="primary"
-            href={downloadUrl}
-            target="_blank"
-            rel="noreferrer"
-            download="Md_Parwez_Ansari_Resume.pdf"
-            className="resume-download-btn"
-            disabled={loading}
-          >
-            <AiOutlineDownload />
-            &nbsp;Download CV
-          </Button>
-        </div>
+        {!loading && (
+          <div className="resume-toolbar resume-toolbar-bottom">
+            <Button
+              variant="primary"
+              href={downloadUrl}
+              target="_blank"
+              rel="noreferrer"
+              download="Md_Parwez_Ansari_Resume.pdf"
+              className="resume-download-btn"
+            >
+              <AiOutlineDownload />
+              &nbsp;Download CV
+            </Button>
+          </div>
+        )}
       </Container>
     </div>
   );
