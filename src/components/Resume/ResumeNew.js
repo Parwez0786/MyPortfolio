@@ -7,6 +7,7 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import { getResume } from "../../api";
+import SectionLoader from "../SectionLoader";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -129,9 +130,7 @@ function ResumeNew() {
         </div>
 
         {error && <p className="resume-status resume-status-warn">{error}</p>}
-        {loading && (
-          <p className="resume-status">Preparing clean resume preview...</p>
-        )}
+        {loading && <SectionLoader label="Loading resume" />}
 
         <div className="resume-stage">
           {!loading && pdfData && (
@@ -139,7 +138,12 @@ function ResumeNew() {
               <Document
                 file={pdfData}
                 onLoadSuccess={onDocumentLoadSuccess}
-                loading={<div className="resume-paper-loading">Rendering page...</div>}
+                loading={
+                  <SectionLoader
+                    label="Rendering resume"
+                    className="section-preloader--compact"
+                  />
+                }
                 error={
                   <div className="resume-paper-error">
                     Preview failed. Please use Download CV.

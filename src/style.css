@@ -109,6 +109,21 @@ button:focus {
   opacity: 0;
 }
 
+/* Same spinner as home preloader, inline for page sections */
+.section-preloader {
+  width: 100%;
+  min-height: 220px;
+  background-image: url(./Assets/pre.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80px 80px;
+}
+
+.section-preloader--compact {
+  min-height: 160px;
+  background-size: 64px 64px;
+}
+
 #no-scroll {
   overflow: hidden;
   height: 100vh;

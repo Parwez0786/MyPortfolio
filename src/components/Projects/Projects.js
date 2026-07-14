@@ -4,6 +4,7 @@ import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
 import { getProjects } from "../../api";
 import ScrollReveal from "../ScrollReveal";
+import SectionLoader from "../SectionLoader";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -49,7 +50,7 @@ function Projects() {
             Here are a few projects I've worked on recently.
           </p>
         </ScrollReveal>
-        {loading && <p style={{ color: "white" }}>Loading projects...</p>}
+        {loading && <SectionLoader label="Loading projects" />}
         {error && <p style={{ color: "#ff6b6b" }}>{error}</p>}
         {!loading && !error && projects.length === 0 && (
           <p style={{ color: "white", textAlign: "center", marginTop: "40px" }}>
