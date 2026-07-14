@@ -43,19 +43,44 @@ This project was built using these technologies.
 
 **📱 Fully Responsive**
 
+**🗄️ Dynamic projects** — stored in MongoDB Atlas, images on Cloudinary, managed via `/admin`
+
+**🚀 Deploy** — see [RENDER.md](RENDER.md) for Render (API + static frontend)
+
 ## Getting Started
 
 Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
 
 ## 🛠 Installation and Setup Instructions
 
-1. Installation: `npm install`
+### Frontend
 
-2. In the project directory, you can run: `npm start`
+1. Copy env: `cp .env.example .env`
+2. Set `REACT_APP_API_URL=http://localhost:5000` (or your deployed API URL)
+3. Installation: `npm install`
+4. Run: `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-The page will reload if you make edits.
+Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
+
+### Backend (required for projects + admin)
+
+See [server/README.md](server/README.md) for MongoDB Atlas, Cloudinary, and API setup.
+
+```bash
+cd server
+cp .env.example .env   # fill in credentials
+npm install
+npm run dev
+```
+
+### Admin
+
+1. Start the API and frontend
+2. Open [http://localhost:3000/admin](http://localhost:3000/admin)
+3. Log in with the password from `server/.env` (`ADMIN_PASSWORD`)
+4. Create, edit, or delete projects (image upload goes to Cloudinary)
+
+Public `/project` page loads projects from the API with no layout changes.
 
 ## Usage Instructions
 

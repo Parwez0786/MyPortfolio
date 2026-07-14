@@ -8,28 +8,44 @@ function AboutCard() {
       <Card.Body>
         <blockquote className="blockquote mb-0">
           <p style={{ textAlign: "justify" }}>
-            Hi Everyone, I am <span className="purple">Md Parwez Ansari </span>
-            from <span className="purple"> Jabalpur, India.</span>
-            <br />
-            I am Pursuing B.tech in Information Technology from IIIT Allahabad
+            Hi Everyone, I am <span className="purple">Md Parwez Ansari</span>.
             <br />
             <br />
-            Apart from coding, some other activities that I love to do!
+            I work as a{" "}
+            <span className="purple">Software Engineer at Paytm Money</span>{" "}
+            (Noida, Onsite) — previously a Software Engineer Intern there (Jan
+            2025 – June 2025), now full-time since June 2025.
+            <br />
+            <br />I completed{" "}
+            <span className="purple">B.Tech in Information Technology</span> from{" "}
+            <span className="purple">IIIT Allahabad</span> (2021–2025) with a CGPA
+            of <span className="purple">8.04</span>.
+            <br />
+            <br />
+            At work I focus on Kafka pipelines, Spring Boot APIs, Redis analytics,
+            and high-throughput financial workflows. Outside work I build
+            full-stack systems and practice competitive programming.
+            <br />
+            <br />
+            Achievements:
           </p>
           <ul>
             <li className="about-activity">
-              <ImPointRight /> Playing Games
+              <ImPointRight /> Codeforces Specialist — rating 1501
             </li>
             <li className="about-activity">
-              <ImPointRight /> Writing Tech Blogs
+              <ImPointRight /> LeetCode Knight (Top 3.54%) — rating 1953
             </li>
             <li className="about-activity">
-              <ImPointRight /> Travelling
+              <ImPointRight /> CodeChef 4★ — top 1000 among 181k+ Indian programmers
+            </li>
+            <li className="about-activity">
+              <ImPointRight /> Global ranks in Codeforces / LeetCode contests
             </li>
           </ul>
 
           <p style={{ color: "rgb(155 126 172)" }}>
-            "Strive to build things that make a difference!"{" "}
+            "Build reliable systems. Keep shipping. Keep improving."{" "}
           </p>
           <footer className="blockquote-footer">Parwez</footer>
         </blockquote>

@@ -1,108 +1,60 @@
-
-import React, { useState } from "react";
+import React from "react";
 import { Col, Row, OverlayTrigger, Tooltip } from "react-bootstrap";
-import {
-  SiVisualstudiocode,
-  SiPostman,
-  SiSlack,
-  SiVercel,
-  SiMacos,
-} from "react-icons/si";
 import {
   SiCodeforces,
   SiCodechef,
   SiLeetcode,
   SiGeeksforgeeks,
 } from "react-icons/si";
+
 function CodingProfiles() {
-  const [techName, setTechName] = useState("");
+  const renderTooltip = (name) => <Tooltip id={`tooltip-${name}`}>{name}</Tooltip>;
 
-  const handleMouseEnter = (name) => {
-    setTechName(name);
-  };
+  const profiles = [
+    {
+      name: "LeetCode Knight (1953)",
+      href: "https://leetcode.com/parwez0786/",
+      icon: <SiLeetcode />,
+    },
+    {
+      name: "Codeforces Specialist (1501)",
+      href: "https://codeforces.com/profile/foolcoder",
+      icon: <SiCodeforces />,
+    },
+    {
+      name: "CodeChef 4★",
+      href: "https://www.codechef.com/users/codeman86",
+      icon: <SiCodechef />,
+    },
+    {
+      name: "GeeksforGeeks",
+      href: "https://auth.geeksforgeeks.org/user/iit2021113",
+      icon: <SiGeeksforgeeks />,
+    },
+  ];
 
-  const handleMouseLeave = () => {
-    setTechName("");
-  };
-   const renderTooltip = (name) => <Tooltip id="tooltip">{name}</Tooltip>;
   return (
     <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
-      <Col xs={4} md={2} className="tech-icons">
-        <a
-          href="https://leetcode.com/parwez0786/"
-          target="_blank"
-          style={{ textDecoration: "none", color: "white" }}
+      {profiles.map((profile, i) => (
+        <Col
+          xs={4}
+          md={2}
+          className="tech-icons tech-icons-animated"
+          key={profile.name}
+          style={{ animationDelay: `${i * 80}ms` }}
         >
-          <OverlayTrigger
-            placement="bottom"
-            overlay={renderTooltip("Leetcode")}
+          <a
+            href={profile.href}
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none", color: "white" }}
           >
-            <div
-              onMouseEnter={() => handleMouseEnter("Leetcode")}
-              onMouseLeave={handleMouseLeave}
-            >
-              <SiLeetcode />
-            </div>
-          </OverlayTrigger>
-        </a>
-      </Col>
-
-      <Col xs={4} md={2} className="tech-icons">
-        <a
-          href="https://codeforces.com/profile/iit2021113"
-          target="_blank"
-          style={{ textDecoration: "none", color: "white" }}
-        >
-          <OverlayTrigger
-            placement="bottom"
-            overlay={renderTooltip("Codeforces")}
-          >
-            <div
-              onMouseEnter={() => handleMouseEnter("Codeforces")}
-              onMouseLeave={handleMouseLeave}
-            >
-              <SiCodeforces />
-            </div>
-          </OverlayTrigger>
-        </a>
-      </Col>
-
-      <Col xs={4} md={2} className="tech-icons">
-        <a
-          href="https://www.codechef.com/users/parwezzzzz0786"
-          target="_blank"
-          style={{ textDecoration: "none", color: "white" }}
-        >
-          <OverlayTrigger
-            placement="bottom"
-            overlay={renderTooltip("Codechef")}
-          >
-            <div
-              onMouseEnter={() => handleMouseEnter("Codechef")}
-              onMouseLeave={handleMouseLeave}
-            >
-              <SiCodechef />
-            </div>
-          </OverlayTrigger>
-        </a>
-      </Col>
-
-      <Col xs={4} md={2} className="tech-icons">
-        <a
-          href="https://auth.geeksforgeeks.org/user/iit2021113"
-          target="_blank"
-          style={{ textDecoration: "none", color: "white" }}
-        >
-          <OverlayTrigger placement="bottom" overlay={renderTooltip("GFG")}>
-            <div
-              onMouseEnter={() => handleMouseEnter("GFG")}
-              onMouseLeave={handleMouseLeave}
-            >
-              <SiGeeksforgeeks />
-            </div>
-          </OverlayTrigger>
-        </a>
-      </Col>
+            <OverlayTrigger placement="bottom" overlay={renderTooltip(profile.name)}>
+              <div>{profile.icon}</div>
+            </OverlayTrigger>
+          </a>
+        </Col>
+      ))}
     </Row>
   );
 }

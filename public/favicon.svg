@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="PA">
+  <defs>
+    <linearGradient id="g" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d48cff"/>
+      <stop offset="1" stop-color="#9b4ddb"/>
+    </linearGradient>
+  </defs>
+  <path stroke="url(#g)" stroke-width="3.2" stroke-linejoin="round" d="M32 5 L54 18 V46 L32 59 L10 46 V18 Z"/>
+  <text
+    x="32"
+    y="40"
+    text-anchor="middle"
+    fill="url(#g)"
+    font-family="Arial Black, Helvetica Neue, Arial, sans-serif"
+    font-size="22"
+    font-weight="900"
+    letter-spacing="0.5"
+  >PA</text>
+</svg>

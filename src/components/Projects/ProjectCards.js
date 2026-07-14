@@ -1,13 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
 
 function ProjectCards(props) {
+  const images =
+    props.imgPaths && props.imgPaths.length
+      ? props.imgPaths
+      : props.imgPath
+      ? [props.imgPath]
+      : [];
+  const [index, setIndex] = useState(0);
+  const current = images[index] || images[0];
+
+  const showPrev = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIndex((i) => (i - 1 + images.length) % images.length);
+  };
+
+  const showNext = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIndex((i) => (i + 1) % images.length);
+  };
+
   return (
     <Card className="project-card-view">
-      <Card.Img variant="top" src={props.imgPath} alt="card-img" />
+      <div style={{ position: "relative" }}>
+        {current && <Card.Img variant="top" src={current} alt="card-img" />}
+        {images.length > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={showPrev}
+              aria-label="Previous image"
+              style={{
+                position: "absolute",
+                left: 8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                border: "none",
+                background: "rgba(0,0,0,0.45)",
+                color: "#fff",
+                borderRadius: "50%",
+                width: 28,
+                height: 28,
+                cursor: "pointer",
+              }}
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={showNext}
+              aria-label="Next image"
+              style={{
+                position: "absolute",
+                right: 8,
+                top: "50%",
+                transform: "translateY(-50%)",
+                border: "none",
+                background: "rgba(0,0,0,0.45)",
+                color: "#fff",
+                borderRadius: "50%",
+                width: 28,
+                height: 28,
+                cursor: "pointer",
+              }}
+            >
+              ›
+            </button>
+            <div
+              style={{
+                position: "absolute",
+                bottom: 8,
+                left: 0,
+                right: 0,
+                textAlign: "center",
+                color: "#fff",
+                fontSize: "0.75rem",
+                textShadow: "0 1px 2px rgba(0,0,0,0.8)",
+              }}
+            >
+              {index + 1} / {images.length}
+            </div>
+          </>
+        )}
+      </div>
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
         <Card.Text style={{ textAlign: "justify" }}>
@@ -19,8 +100,6 @@ function ProjectCards(props) {
         </Button>
         {"\n"}
         {"\n"}
-
-        {/* If the component contains Demo link and if it's not a Blog then, it will render the below component  */}
 
         {!props.isBlog && props.demoLink && (
           <Button

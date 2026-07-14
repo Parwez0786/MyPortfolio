@@ -24,9 +24,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "npm run dev --prefix server",
+    "dev": "concurrently -n web,api -c cyan,magenta \"npm start\" \"npm run server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.4"
   },
   "eslintConfig": {
     "extends": [

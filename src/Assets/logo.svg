@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" role="img" aria-label="Md Parwez Ansari">
+  <defs>
+    <linearGradient id="paGrad" x1="24" y1="18" x2="104" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d48cff"/>
+      <stop offset="1" stop-color="#9b4ddb"/>
+    </linearGradient>
+  </defs>
+
+  <path
+    stroke="url(#paGrad)"
+    stroke-width="5"
+    stroke-linejoin="round"
+    d="M64 10 L108 35 V93 L64 118 L20 93 V35 Z"
+  />
+
+  <text
+    x="64"
+    y="78"
+    text-anchor="middle"
+    fill="url(#paGrad)"
+    font-family="Arial Black, Helvetica Neue, Arial, sans-serif"
+    font-size="42"
+    font-weight="900"
+    letter-spacing="1"
+  >PA</text>
+</svg>

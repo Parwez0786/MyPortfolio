@@ -27,3 +27,6 @@ yarn-error.log*
 
 Server/node_modules
 Server/config.js
+/server/node_modules
+server/.env
+server/uploads
