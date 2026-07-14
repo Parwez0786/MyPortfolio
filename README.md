@@ -3,24 +3,14 @@
   <a href="https://portfolio-client-w93a.onrender.com/" target="_blank">ParwezPortfolio</a>
 </h2>
 
-
 <br/>
-
-<center>
-
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) &nbsp;
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) &nbsp;
-[![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com) &nbsp;
-![GitHub Repo stars](https://img.shields.io/github/stars/soumyajit4419/Portfolio?color=red&logo=github&style=for-the-badge) &nbsp;
-![GitHub forks](https://img.shields.io/github/forks/soumyajit4419/Portfolio?color=red&logo=github&style=for-the-badge)
-
-</center>
-
-
 
 ## TL;DR
 
-You can fork this repo to modify and make changes of your own. Please give me proper credit by linking back to [Parwez Ansari](https://github.com/Parwez0786/MyPortfolio). Thanks!
+Fork this repo and customize it. Please give credit by linking back to [Parwez Ansari](https://github.com/Parwez0786/MyPortfolio).
+
+**Live site:** [https://portfolio-client-w93a.onrender.com](https://portfolio-client-w93a.onrender.com)  
+**Live API:** [https://portfolio-api-oh9x.onrender.com](https://portfolio-api-oh9x.onrender.com)
 
 ## Built With
 
@@ -28,65 +18,152 @@ My personal portfolio <a href="https://portfolio-client-w93a.onrender.com/" targ
 
 This project was built using these technologies.
 
-- React.js
-- Node.js
-- Express.js
-- CSS3
-- VsCode
-- Vercel
+- React.js + React Bootstrap
+- Node.js + Express.js
+- MongoDB Atlas
+- Cloudinary
+- Render (API Web Service + Static Site)
 
 ## Features
 
-**📖 Multi-Page Layout**
+- Multi-page layout (Home, About, Experience, Projects, Resume, Admin)
+- Fully responsive UI
+- Dynamic projects (MongoDB + Cloudinary) managed at `/admin`
+- Resume upload from admin and preview on `/resume`
+- Deploy guide for Render below
 
-**🎨 Styled with React-Bootstrap and Css with easy to customize colors**
+## Getting Started (Local)
 
-**📱 Fully Responsive**
-
-**🗄️ Dynamic projects** — stored in MongoDB Atlas, images on Cloudinary, managed via `/admin`
-
-**🚀 Deploy** — see [RENDER.md](RENDER.md) for Render (API + static frontend)
-
-## Getting Started
-
-Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
-
-## 🛠 Installation and Setup Instructions
+You need Node.js and git installed.
 
 ### Frontend
 
-1. Copy env: `cp .env.example .env`
-2. Set `REACT_APP_API_URL=http://localhost:5000` (or your deployed API URL)
-3. Installation: `npm install`
-4. Run: `npm start`
+```bash
+cp .env.example .env
+# set REACT_APP_API_URL=http://localhost:5000
+npm install
+npm start
+```
 
-Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
+Open [http://localhost:3000](http://localhost:3000).
 
-### Backend (required for projects + admin)
-
-See [server/README.md](server/README.md) for MongoDB Atlas, Cloudinary, and API setup.
+### Backend
 
 ```bash
 cd server
-cp .env.example .env   # fill in credentials
+cp .env.example .env   # fill MongoDB, Cloudinary, ADMIN_PASSWORD, JWT_SECRET
 npm install
+npm run dev
+```
+
+Or run both together from repo root:
+
+```bash
 npm run dev
 ```
 
 ### Admin
 
-1. Start the API and frontend
+1. Start API + frontend
 2. Open [http://localhost:3000/admin](http://localhost:3000/admin)
-3. Log in with the password from `server/.env` (`ADMIN_PASSWORD`)
-4. Create, edit, or delete projects (image upload goes to Cloudinary)
+3. Login with `ADMIN_PASSWORD` from `server/.env`
+4. Manage projects and upload resume PDF
 
-Public `/project` page loads projects from the API with no layout changes.
+---
 
-## Usage Instructions
+## Deploy on Render (Frontend + Backend)
 
-Open the project folder and Navigate to `/src/components/`. <br/>
-You will find all the components used and you can edit your information accordingly.
+Deploy **two services** from the same GitHub repo.
+
+### 1) API — Web Service
+
+1. Go to [Render Dashboard](https://dashboard.render.com) → **New +** → **Web Service**
+2. Connect `Parwez0786/MyPortfolio`
+3. Configure:
+
+| Setting | Value |
+|--------|--------|
+| Root Directory | `server` |
+| Runtime | Node |
+| Build Command | `npm install` |
+| Start Command | `npm start` |
+
+4. Environment variables:
+
+| Key | Value |
+|-----|--------|
+| `MONGODB_URI` | Atlas connection string |
+| `MONGODB_DB` | `portfolio` |
+| `CLOUDINARY_CLOUD_NAME` | from Cloudinary |
+| `CLOUDINARY_API_KEY` | from Cloudinary |
+| `CLOUDINARY_API_SECRET` | from Cloudinary |
+| `ADMIN_PASSWORD` | your admin password |
+| `JWT_SECRET` | long random string |
+| `NODE_ENV` | `production` |
+| `CLIENT_URL` | set after frontend is live |
+
+5. Deploy and copy API URL (example: `https://portfolio-api-oh9x.onrender.com`)
+
+### 2) Frontend — Static Site
+
+1. **New +** → **Static Site** → same repo
+2. Configure:
+
+| Setting | Value |
+|--------|--------|
+| Root Directory | *(leave empty)* |
+| Build Command | `npm install && npm run build` |
+| Publish Directory | `build` |
+
+3. Build-time env var:
+
+| Key | Value |
+|-----|--------|
+| `REACT_APP_API_URL` | your API URL, e.g. `https://portfolio-api-oh9x.onrender.com` (no trailing slash) |
+
+### 3) Add SPA Rewrite (important)
+
+Without this, routes like `/about` or `/admin` may 404 on refresh.
+
+1. Open the **Static Site** (frontend) on Render
+2. Go to **Redirects/Rewrites**
+3. **Add Rule**:
+
+| Field | Value |
+|--------|--------|
+| Source | `/*` |
+| Destination | `/index.html` |
+| Action | **Rewrite** (not Redirect) |
+
+4. Save
+
+### 4) Final wiring
+
+1. On API service, set `CLIENT_URL` to your Static Site URL
+2. Manual redeploy API once
+3. Open site → `/admin` → re-upload resume once (Render disk is temporary)
+
+### Free tier notes
+
+- API may sleep when idle; first request can be slow
+- MongoDB Atlas Network Access: allow `0.0.0.0/0`
+- Do not commit `server/.env` or `server/uploads/`
+
+More detail: [RENDER.md](RENDER.md) · Blueprint: [render.yaml](render.yaml)
+
+## Project structure
+
+```text
+/
+  src/                 # React frontend
+  server/              # Express API
+  RENDER.md            # Deploy notes
+  render.yaml          # Optional Render Blueprint
+```
+
+## Usage
+
+Edit content under `src/components/` (Home, About, Experience, etc.).  
+Projects/resume content is managed from `/admin` after backend is running.
 
 ### Show your support
-
-

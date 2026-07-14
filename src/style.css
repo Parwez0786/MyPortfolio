@@ -332,6 +332,7 @@ button:focus {
   padding-bottom: 30px !important;
   padding-top: 30px !important;
   overflow: hidden;
+  border-radius: 16px;
 }
 
 .home-section::before {

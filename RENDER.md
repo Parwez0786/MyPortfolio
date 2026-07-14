@@ -50,9 +50,22 @@ Do **not** commit `server/.env` or `server/uploads/`.
 |-----|--------|
 | `REACT_APP_API_URL` | `https://portfolio-api.onrender.com` (no trailing slash) |
 
-4. After deploy, add a **Rewrite** rule (SPA):
-   - Source: `/*`
-   - Destination: `/index.html`
+4. After deploy, add a **Rewrite** rule (SPA) so React Router works:
+
+   1. Open your **Static Site** on Render  
+   2. Go to **Redirects/Rewrites**  
+   3. Click **Add Rule**  
+   4. Set:
+
+   | Field | Value |
+   |--------|--------|
+   | Source | `/*` |
+   | Destination | `/index.html` |
+   | Action | **Rewrite** (not Redirect) |
+
+   5. Save  
+
+   Now `/about`, `/project`, `/admin`, etc. will work on refresh.
 
 ## 4. Final wiring
 
