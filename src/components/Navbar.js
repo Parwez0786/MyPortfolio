@@ -12,6 +12,7 @@ import {
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
   AiOutlineUser,
+  AiOutlineSetting,
 } from "react-icons/ai";
 import { MdOutlineWorkOutline } from "react-icons/md";
 
@@ -101,6 +102,16 @@ function NavBar() {
                 onClick={() => updateExpanded(false)}
               >
                 <CgFileDocument style={{ marginBottom: "2px" }} /> Resume
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link
+                as={Link}
+                to="/admin"
+                onClick={() => updateExpanded(false)}
+              >
+                <AiOutlineSetting style={{ marginBottom: "2px" }} /> Admin
               </Nav.Link>
             </Nav.Item>
 
