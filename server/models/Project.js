@@ -44,6 +44,14 @@ const projectSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    startedAt: {
+      type: Date,
+      default: null,
+    },
+    endedAt: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );
@@ -56,10 +64,16 @@ projectSchema.methods.toClientJSON = function toClientJSON() {
     images = [{ url: obj.imgUrl, publicId: obj.imgPublicId || "" }];
   }
 
+  // Backward compat if an older doc only had completedAt
+  const startedAt = obj.startedAt || null;
+  const endedAt = obj.endedAt || obj.completedAt || null;
+
   return {
     ...obj,
     images,
     imgUrl: images[0]?.url || obj.imgUrl || "",
+    startedAt,
+    endedAt,
   };
 };
 

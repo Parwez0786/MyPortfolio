@@ -119,7 +119,12 @@ function ProjectCards(props) {
         )}
       </div>
       <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
+        <div className="project-card-header">
+          <Card.Title className="mb-0">{props.title}</Card.Title>
+          {props.timeline && (
+            <span className="project-timeline">{props.timeline}</span>
+          )}
+        </div>
         <Card.Text style={{ textAlign: "justify" }}>
           {props.description}
         </Card.Text>

@@ -6,6 +6,26 @@ import { getProjects } from "../../api";
 import ScrollReveal from "../ScrollReveal";
 import SectionLoader from "../SectionLoader";
 
+const formatProjectMonth = (value) => {
+  if (!value) return "";
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+};
+
+const formatProjectRange = (startedAt, endedAt) => {
+  const start = formatProjectMonth(startedAt);
+  const end = formatProjectMonth(endedAt);
+  if (start && end) return `${start} – ${end}`;
+  if (start) return `${start} – Present`;
+  if (end) return end;
+  return "";
+};
+
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -78,6 +98,10 @@ function Projects() {
                       description={project.description}
                       ghLink={project.ghLink}
                       demoLink={project.demoLink}
+                      timeline={formatProjectRange(
+                        project.startedAt,
+                        project.endedAt
+                      )}
                     />
                   </ScrollReveal>
                 </Col>

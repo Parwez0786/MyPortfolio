@@ -71,10 +71,29 @@ const syncLegacyImageFields = (project, images) => {
   project.imgPublicId = images[0]?.publicId || "";
 };
 
+/** Parse YYYY-MM or YYYY-MM-DD (or Date) into a Date, or null to clear */
+const parseMonthDate = (value) => {
+  if (value === undefined) return undefined;
+  if (value === null || value === "") return null;
+  const raw = String(value).trim();
+  if (/^\d{4}-\d{2}$/.test(raw)) {
+    return new Date(`${raw}-01T00:00:00.000Z`);
+  }
+  const d = new Date(raw);
+  return Number.isNaN(d.getTime()) ? null : d;
+};
+
+const sortByTimeline = (projects) =>
+  [...projects].sort((a, b) => {
+    const da = a.endedAt || a.startedAt || a.completedAt || a.createdAt || 0;
+    const db = b.endedAt || b.startedAt || b.completedAt || b.createdAt || 0;
+    return new Date(db) - new Date(da);
+  });
+
 router.get("/", async (req, res) => {
   try {
-    const projects = await Project.find().sort({ createdAt: -1 });
-    res.json(projects.map((p) => p.toClientJSON()));
+    const projects = await Project.find();
+    res.json(sortByTimeline(projects).map((p) => p.toClientJSON()));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -82,7 +101,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", protect, projectImageUpload, async (req, res) => {
   try {
-    const { title, description, ghLink, demoLink, isBlog } = req.body;
+    const { title, description, ghLink, demoLink, isBlog, startedAt, endedAt } =
+      req.body;
 
     if (!title || !description) {
       return res.status(400).json({ message: "Title and description are required" });
@@ -94,6 +114,8 @@ router.post("/", protect, projectImageUpload, async (req, res) => {
     }
 
     const images = await uploadFiles(files);
+    const start = parseMonthDate(startedAt);
+    const end = parseMonthDate(endedAt);
 
     const project = await Project.create({
       title,
@@ -101,6 +123,8 @@ router.post("/", protect, projectImageUpload, async (req, res) => {
       ghLink: ghLink || "",
       demoLink: demoLink || "",
       isBlog: isBlog === "true" || isBlog === true,
+      startedAt: start === undefined ? null : start,
+      endedAt: end === undefined ? null : end,
       images,
       imgUrl: images[0].url,
       imgPublicId: images[0].publicId,
@@ -120,7 +144,8 @@ router.put("/:id", protect, projectImageUpload, async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     }
 
-    const { title, description, ghLink, demoLink, isBlog } = req.body;
+    const { title, description, ghLink, demoLink, isBlog, startedAt, endedAt } =
+      req.body;
 
     if (title !== undefined) project.title = title;
     if (description !== undefined) project.description = description;
@@ -128,6 +153,12 @@ router.put("/:id", protect, projectImageUpload, async (req, res) => {
     if (demoLink !== undefined) project.demoLink = demoLink;
     if (isBlog !== undefined) {
       project.isBlog = isBlog === "true" || isBlog === true;
+    }
+    if (startedAt !== undefined) {
+      project.startedAt = parseMonthDate(startedAt);
+    }
+    if (endedAt !== undefined) {
+      project.endedAt = parseMonthDate(endedAt);
     }
 
     let images = getImages(project);

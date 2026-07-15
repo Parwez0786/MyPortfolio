@@ -1290,6 +1290,36 @@ button:focus {
   transform: scale(1.04);
 }
 
+.project-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.project-card-header .card-title {
+  margin-bottom: 0 !important;
+  flex: 1;
+}
+
+.project-timeline {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #c770f0;
+  background: rgba(199, 112, 240, 0.12);
+  border: 1px solid rgba(199, 112, 240, 0.35);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+  line-height: 1.2;
+  max-width: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .tech-icons-animated {
   opacity: 0;
   animation: popIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;

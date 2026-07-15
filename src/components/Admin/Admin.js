@@ -16,6 +16,37 @@ const emptyForm = {
   ghLink: "",
   demoLink: "",
   isBlog: false,
+  startedAt: "",
+  endedAt: "",
+};
+
+const toMonthInputValue = (value) => {
+  if (!value) return "";
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return "";
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+  return `${y}-${m}`;
+};
+
+const formatProjectMonth = (value) => {
+  if (!value) return "";
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+};
+
+const formatProjectRange = (startedAt, endedAt) => {
+  const start = formatProjectMonth(startedAt);
+  const end = formatProjectMonth(endedAt);
+  if (start && end) return `${start} – ${end}`;
+  if (start) return `${start} – Present`;
+  if (end) return end;
+  return "";
 };
 
 function Admin() {
@@ -138,6 +169,8 @@ function Admin() {
       ghLink: project.ghLink || "",
       demoLink: project.demoLink || "",
       isBlog: Boolean(project.isBlog),
+      startedAt: toMonthInputValue(project.startedAt),
+      endedAt: toMonthInputValue(project.endedAt || project.completedAt),
     });
     clearFileInput();
     setExistingImages(project.images || []);
@@ -175,6 +208,8 @@ function Admin() {
     formData.append("ghLink", form.ghLink);
     formData.append("demoLink", form.demoLink);
     formData.append("isBlog", String(form.isBlog));
+    formData.append("startedAt", form.startedAt || "");
+    formData.append("endedAt", form.endedAt || "");
 
     files.forEach((file) => {
       formData.append("images", file, file.name);
@@ -473,6 +508,47 @@ function Admin() {
             <Row>
               <Col md={6}>
                 <Form.Group className="mb-3">
+                  <Form.Label style={{ color: "white" }}>Started</Form.Label>
+                  <Form.Control
+                    type="month"
+                    name="startedAt"
+                    value={form.startedAt}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group className="mb-3">
+                  <Form.Label style={{ color: "white" }}>Ended</Form.Label>
+                  <Form.Control
+                    type="month"
+                    name="endedAt"
+                    value={form.endedAt}
+                    onChange={handleChange}
+                  />
+                  <Form.Text style={{ color: "#bbb" }}>
+                    Leave empty if the project is still ongoing.
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Group className="mb-3">
+                  <Form.Check
+                    type="checkbox"
+                    name="isBlog"
+                    label="Is Blog"
+                    checked={form.isBlog}
+                    onChange={handleChange}
+                    style={{ color: "white" }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Group className="mb-3">
                   <Form.Label style={{ color: "white" }}>GitHub Link</Form.Label>
                   <Form.Control
                     name="ghLink"
@@ -492,16 +568,6 @@ function Admin() {
                 </Form.Group>
               </Col>
             </Row>
-            <Form.Group className="mb-3">
-              <Form.Check
-                type="checkbox"
-                name="isBlog"
-                label="Is Blog"
-                checked={form.isBlog}
-                onChange={handleChange}
-                style={{ color: "white" }}
-              />
-            </Form.Group>
             <Button type="submit" disabled={busy} style={{ marginRight: "10px" }}>
               {busy ? "Uploading..." : editingId ? "Update" : "Create"}
             </Button>
@@ -558,6 +624,9 @@ function Admin() {
               </div>
               <div style={{ color: "#999", fontSize: "0.8rem" }}>
                 {(project.images || []).length} image(s)
+                {formatProjectRange(project.startedAt, project.endedAt)
+                  ? ` · ${formatProjectRange(project.startedAt, project.endedAt)}`
+                  : ""}
               </div>
             </div>
             <div>
