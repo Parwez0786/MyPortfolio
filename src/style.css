@@ -1278,6 +1278,12 @@ button:focus {
 
 .project-card-view img {
   transition: transform 0.55s ease;
+  border-radius: 10px !important;
+}
+
+.project-card-view > div:first-child {
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .project-card-view:hover img {
