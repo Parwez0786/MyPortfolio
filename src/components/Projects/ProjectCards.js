@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
+
+const AUTO_SCROLL_MS = 3500;
 
 function ProjectCards(props) {
   const images =
@@ -12,7 +14,20 @@ function ProjectCards(props) {
       ? [props.imgPath]
       : [];
   const [index, setIndex] = useState(0);
+  const pausedRef = useRef(false);
   const current = images[index] || images[0];
+  const multi = images.length > 1;
+
+  useEffect(() => {
+    if (!multi) return undefined;
+
+    const id = setInterval(() => {
+      if (pausedRef.current || document.hidden) return;
+      setIndex((i) => (i + 1) % images.length);
+    }, AUTO_SCROLL_MS);
+
+    return () => clearInterval(id);
+  }, [multi, images.length]);
 
   const showPrev = (e) => {
     e.preventDefault();
@@ -28,9 +43,23 @@ function ProjectCards(props) {
 
   return (
     <Card className="project-card-view">
-      <div style={{ position: "relative" }}>
+      <div
+        style={{ position: "relative" }}
+        onMouseEnter={() => {
+          pausedRef.current = true;
+        }}
+        onMouseLeave={() => {
+          pausedRef.current = false;
+        }}
+        onFocus={() => {
+          pausedRef.current = true;
+        }}
+        onBlur={() => {
+          pausedRef.current = false;
+        }}
+      >
         {current && <Card.Img variant="top" src={current} alt="card-img" />}
-        {images.length > 1 && (
+        {multi && (
           <>
             <button
               type="button"
