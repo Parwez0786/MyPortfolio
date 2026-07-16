@@ -623,7 +623,16 @@ button:focus {
   padding-bottom: 50px !important;
   padding-left: 25px !important;
   padding-right: 25px !important;
-  height: auto !important;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.project-card > .reveal {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
 }
 
 .project-card-view {
@@ -633,6 +642,8 @@ button:focus {
   opacity: 0.9 !important;
   transition: all 0.5s ease 0s !important;
   height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 .project-card-view:hover {
   transform: scale(1.02) !important;
@@ -1301,6 +1312,26 @@ button:focus {
 .project-card-header .card-title {
   margin-bottom: 0 !important;
   flex: 1;
+  text-align: left;
+}
+
+.project-card-body {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+}
+
+.project-card-desc {
+  text-align: justify;
+  flex: 1 1 auto;
+}
+
+.project-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 12px;
 }
 
 .project-timeline {

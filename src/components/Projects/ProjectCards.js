@@ -118,34 +118,28 @@ function ProjectCards(props) {
           </>
         )}
       </div>
-      <Card.Body>
+      <Card.Body className="project-card-body">
         <div className="project-card-header">
           <Card.Title className="mb-0">{props.title}</Card.Title>
           {props.timeline && (
             <span className="project-timeline">{props.timeline}</span>
           )}
         </div>
-        <Card.Text style={{ textAlign: "justify" }}>
+        <Card.Text className="project-card-desc">
           {props.description}
         </Card.Text>
-        <Button variant="primary" href={props.ghLink} target="_blank">
-          <BsGithub /> &nbsp;
-          {props.isBlog ? "Blog" : "GitHub"}
-        </Button>
-        {"\n"}
-        {"\n"}
-
-        {!props.isBlog && props.demoLink && (
-          <Button
-            variant="primary"
-            href={props.demoLink}
-            target="_blank"
-            style={{ marginLeft: "10px" }}
-          >
-            <CgWebsite /> &nbsp;
-            {"Demo"}
+        <div className="project-card-actions">
+          <Button variant="primary" href={props.ghLink} target="_blank">
+            <BsGithub /> &nbsp;
+            {props.isBlog ? "Blog" : "GitHub"}
           </Button>
-        )}
+          {!props.isBlog && props.demoLink && (
+            <Button variant="primary" href={props.demoLink} target="_blank">
+              <CgWebsite /> &nbsp;
+              Demo
+            </Button>
+          )}
+        </div>
       </Card.Body>
     </Card>
   );
