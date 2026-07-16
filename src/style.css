@@ -1287,9 +1287,28 @@ button:focus {
   transform: translateY(-8px) scale(1.02) !important;
 }
 
-.project-card-view img {
+.project-card-view img,
+.project-card-view .project-card-img,
+.project-card-view .card-img-top {
   transition: transform 0.55s ease;
   border-radius: 10px !important;
+}
+
+.project-card-media {
+  position: relative;
+  margin: 16px 16px 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.project-card-media .project-card-img,
+.project-card-media .card-img-top {
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 10px !important;
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .project-card-view > div:first-child {

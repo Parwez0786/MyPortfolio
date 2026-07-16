@@ -44,7 +44,7 @@ function ProjectCards(props) {
   return (
     <Card className="project-card-view">
       <div
-        style={{ position: "relative" }}
+        className="project-card-media"
         onMouseEnter={() => {
           pausedRef.current = true;
         }}
@@ -58,7 +58,14 @@ function ProjectCards(props) {
           pausedRef.current = false;
         }}
       >
-        {current && <Card.Img variant="top" src={current} alt="card-img" />}
+        {current && (
+          <Card.Img
+            variant="top"
+            src={current}
+            alt="card-img"
+            className="project-card-img"
+          />
+        )}
         {multi && (
           <>
             <button
