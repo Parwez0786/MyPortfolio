@@ -170,7 +170,7 @@ button:focus {
 .navbar {
   position: fixed !important;
   transition: all 0.3s ease-out 0s !important;
-  padding: 0 2rem !important;
+  padding: 0.3rem 2rem !important;
   font-size: 1.2rem !important;
 }
 
@@ -227,7 +227,7 @@ button:focus {
 
 @media (max-width: 767px) {
   .navbar {
-    padding: 0 2rem !important;
+    padding: 1rem 2rem !important;
     font-size: 1.4rem !important;
     background-color: #181a27 !important;
   }
@@ -252,12 +252,12 @@ button:focus {
 }
 
 .nav-link {
-  padding: 0 1rem !important;
+  padding: 0.8rem 1rem !important;
 }
 
 @media (max-width: 767px) {
   .nav-link {
-    padding: 0.5rem 1rem !important;
+    padding: 0.7rem 1rem !important;
   }
 }
 
