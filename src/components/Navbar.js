@@ -14,8 +14,6 @@ import {
   AiOutlineUser,
   AiOutlineSetting,
 } from "react-icons/ai";
-import { MdOutlineWorkOutline } from "react-icons/md";
-
 import { CgFileDocument } from "react-icons/cg";
 
 function NavBar() {
@@ -68,17 +66,6 @@ function NavBar() {
                 onClick={() => updateExpanded(false)}
               >
                 <AiOutlineUser style={{ marginBottom: "2px" }} /> About
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/experience"
-                onClick={() => updateExpanded(false)}
-              >
-                <MdOutlineWorkOutline style={{ marginBottom: "2px" }} />{" "}
-                Experience
               </Nav.Link>
             </Nav.Item>
 
