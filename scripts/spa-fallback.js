@@ -8,7 +8,7 @@ const path = require("path");
 const buildDir = path.join(__dirname, "..", "build");
 const indexPath = path.join(buildDir, "index.html");
 
-const routes = ["admin", "about", "project", "resume"];
+const routes = ["admin", "about", "project"];
 
 if (!fs.existsSync(indexPath)) {
   console.error("spa-fallback: build/index.html not found. Run react-scripts build first.");
